@@ -29,6 +29,32 @@ export function upsertByFecha(turno: Turno) {
   writeAll(all);
 }
 
+export function upsertById(turno: Turno) {
+  const all = readAll();
+  const idx = all.findIndex(t => t.id === turno.id);
+  if (idx >= 0) {
+    // Si se cambió la fecha, eliminar el turno con la fecha antigua (si existe)
+    const oldTurno = all[idx];
+    if (oldTurno.fechaISO !== turno.fechaISO) {
+      // Buscar si hay otro turno con la nueva fecha y eliminarlo
+      const newFechaIdx = all.findIndex(t => t.fechaISO === turno.fechaISO && t.id !== turno.id);
+      if (newFechaIdx >= 0) {
+        all.splice(newFechaIdx, 1);
+      }
+    }
+    all[idx] = turno;
+  } else {
+    // Si no existe por ID, buscar por fecha y reemplazar o agregar
+    const fechaIdx = all.findIndex(t => t.fechaISO === turno.fechaISO);
+    if (fechaIdx >= 0) {
+      all[fechaIdx] = turno;
+    } else {
+      all.push(turno);
+    }
+  }
+  writeAll(all);
+}
+
 export function removeById(id: string) {
   const all = readAll().filter(t => t.id !== id);
   writeAll(all);

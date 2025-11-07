@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { ReactNode } from "react";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Control Horas Valu",
@@ -12,9 +13,16 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="es" suppressHydrationWarning>
       <body className="min-h-dvh bg-background text-foreground">
-        <div className="container mx-auto max-w-md p-4 sm:max-w-lg">
-          {children}
-        </div>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="system"
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="container mx-auto max-w-md p-4 sm:max-w-lg">
+            {children}
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );

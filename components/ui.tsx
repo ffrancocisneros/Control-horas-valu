@@ -7,14 +7,14 @@ export function cn(...inputs: any[]) {
 }
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50",
+  "inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 active:scale-95",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground hover:opacity-90",
-        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground hover:opacity-90",
-        destructive: "bg-destructive text-destructive-foreground hover:opacity-90",
+        default: "bg-primary text-primary-foreground hover:opacity-90 hover:shadow-md",
+        outline: "border border-input bg-transparent hover:bg-accent hover:text-accent-foreground hover:border-primary/20",
+        secondary: "bg-secondary text-secondary-foreground hover:opacity-90 hover:shadow-sm",
+        destructive: "bg-destructive text-destructive-foreground hover:opacity-90 hover:shadow-md",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
       },
@@ -75,7 +75,7 @@ export function Card({ className, ...props }: React.HTMLAttributes<HTMLDivElemen
   return (
     <div
       className={cn(
-        "rounded-lg border bg-card text-card-foreground shadow-sm",
+        "rounded-lg border bg-card text-card-foreground shadow-sm transition-colors",
         className
       )}
       {...props}
